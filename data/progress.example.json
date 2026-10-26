@@ -1,0 +1,15 @@
+{
+  "player_name": "Player",
+  "avatar": "🦊",
+  "xp": 0,
+  "coins": 50,
+  "quizzes_played": 0,
+  "total_correct": 0,
+  "total_questions": 0,
+  "overall_accuracy": 0.0,
+  "level": 1,
+  "level_title": "Trivia Novice",
+  "best_scores": {},
+  "achievements": [],
+  "history": []
+}
