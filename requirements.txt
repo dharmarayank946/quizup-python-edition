@@ -10,5 +10,4 @@
 #
 # No external third-party dependencies are required.
 # Minimum Python Version: Python 3.8+ with Tkinter support (included with standard Python installers).
-fastapi
-uvicorn
+
