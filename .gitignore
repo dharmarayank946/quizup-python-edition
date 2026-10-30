@@ -48,6 +48,11 @@ data/progress.json
 
 # Sensitive credentials & environment files
 .env
-.env.*
+.env.local
 secrets.json
 config.json
+
+# Node & Frontend
+node_modules/
+frontend/node_modules/
+

@@ -82,8 +82,8 @@ class QuizUpGUI:
         self.root.minsize(860, 680)
         self.root.configure(bg=BG_COLOR)
 
-        # Elevate window in front of VS Code / IDE on startup
-        self._bring_to_front()
+        # Center and elevate window in front of VS Code / terminal on startup
+        self._center_and_elevate_window(980, 720)
 
         # Engine and Storage instances
         self.storage = StorageManager()
@@ -115,13 +115,23 @@ class QuizUpGUI:
         # Start on Dashboard
         self.show_dashboard_screen()
 
-    def _bring_to_front(self) -> None:
-        """Elevate window on launch without freezing topmost."""
+    def _center_and_elevate_window(self, width: int, height: int) -> None:
+        """Center window on screen and elevate smoothly in front of all applications."""
         try:
+            self.root.update_idletasks()
+            sw = self.root.winfo_screenwidth()
+            sh = self.root.winfo_screenheight()
+            w = min(width, sw - 40)
+            h = min(height, sh - 80)
+            x = max(0, (sw - w) // 2)
+            y = max(0, (sh - h) // 2)
+            self.root.geometry(f"{w}x{h}+{x}+{y}")
+            self.root.minsize(860, 600)
+            self.root.deiconify()
             self.root.lift()
-            self.root.focus_force()
             self.root.attributes("-topmost", True)
-            self.root.after_idle(lambda: self.root.attributes("-topmost", False))
+            self.root.after(800, lambda: self.root.attributes("-topmost", False))
+            self.root.focus_force()
         except Exception:
             pass
 

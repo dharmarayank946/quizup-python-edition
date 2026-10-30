@@ -1,0 +1,170 @@
+{
+  "info": {
+    "_postman_id": "quizup-trivia-api-v2",
+    "name": "QuizUp Trivia API",
+    "description": "Postman Collection for QuizUp Trivia platform FastAPI microservice deployed on Render.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:8000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        },
+        "description": "Liveness probe for Render deployment."
+      }
+    },
+    {
+      "name": "Get Categories & Difficulty Breakdown",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/quiz/categories",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "quiz", "categories"]
+        },
+        "description": "List all 6 official trivia categories with total question counts."
+      }
+    },
+    {
+      "name": "Get Daily Spark Challenge",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/quiz/daily-spark",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "quiz", "daily-spark"]
+        },
+        "description": "Deterministic daily 5-question challenge seeded by calendar date."
+      }
+    },
+    {
+      "name": "Start Quiz Session (Learning Mode)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"category\": \"Technology\",\n  \"difficulty\": \"easy\",\n  \"mode\": \"learning\",\n  \"num_questions\": 5\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/quiz/session/start",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "quiz", "session", "start"]
+        },
+        "description": "Initiate interactive learning mode with immediate explanations."
+      }
+    },
+    {
+      "name": "Start Quiz Session (Exam Mode)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"category\": \"Academics\",\n  \"difficulty\": \"medium\",\n  \"mode\": \"exam\",\n  \"num_questions\": 10\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/quiz/session/start",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "quiz", "session", "start"]
+        },
+        "description": "Initiate timed exam mode."
+      }
+    },
+    {
+      "name": "Submit Quiz Answers & Calculate XP",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"session_id\": \"sample-session-uuid\",\n  \"category\": \"Technology\",\n  \"difficulty\": \"easy\",\n  \"mode\": \"learning\",\n  \"player_name\": \"Player\",\n  \"answers\": [\n    {\n      \"question_id\": \"tech_easy_01\",\n      \"selected_index\": 2,\n      \"time_spent_sec\": 4.5\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/quiz/session/submit",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "quiz", "session", "submit"]
+        },
+        "description": "Submit answers, calculate accuracy, award XP and coins, update level."
+      }
+    },
+    {
+      "name": "Get Hall of Fame Leaderboard",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/quiz/leaderboard",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "quiz", "leaderboard"]
+        },
+        "description": "Global player rankings with XP, Level, Avatar, and Win Rate."
+      }
+    },
+    {
+      "name": "Get Player Profile & Stats",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/quiz/profile",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "quiz", "profile"]
+        },
+        "description": "Get current player level, XP, coins, unlocked achievements, and attempt history."
+      }
+    },
+    {
+      "name": "Update Player Profile",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Commander Spark\",\n  \"avatar\": \"🚀\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/quiz/profile",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "quiz", "profile"]
+        },
+        "description": "Update player avatar and display name."
+      }
+    }
+  ]
+}

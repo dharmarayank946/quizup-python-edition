@@ -104,6 +104,10 @@ def run_cli_quiz() -> None:
 
 def run_gui() -> None:
     """Launch the Tkinter desktop GUI."""
+    print("=" * 60)
+    print("QuizUp Python Edition -- Launching Desktop Game GUI...")
+    print("(Window will center and pop up directly in front)")
+    print("=" * 60)
     try:
         import tkinter as tk
         from gui import QuizUpGUI
